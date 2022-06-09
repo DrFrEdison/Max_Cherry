@@ -147,4 +147,5 @@ dt$xlsx$robustheit <- rbind(dt$xlsx$robustheit
 
 writeData(dt$xlsx$wb, "Robustheit", dt$xlsx$robustheit, colNames = F, startRow = dt$xlsx$row + 1)
 saveWorkbook(dt$xlsx$wb, dt$xlsx$file, overwrite = TRUE)
-# '=WENNS(UND(F11<>"";G11<>"");"yes"; UND(F11="";G11<>"");"noLG";UND(G11="";F11<>"");"noLab")'
+# =WENNS(UND(F11<>"";G11<>"");"yes"; UND(F11="";G11<>"");"noLG";UND(G11="";F11<>"");"noLab")
+# =WENN(UND(G11>0; F11>0);G11-F11;"")
