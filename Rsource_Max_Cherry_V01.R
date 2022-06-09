@@ -1,7 +1,4 @@
-dt <- list(); dt$R <- paste0(Sys.getenv("OneDriveCommercial"), "/FE_Methoden/", "Allgemein/R_dt_project/")
-source(paste0(dt$R,"R/source_spc_files.R"))
-source(paste0(dt$R,"R/source_pls.R"))
-source(paste0(dt$R,"R/source_read.R"))
+library(devtools); suppressMessages(install_github("DrFrEdison/r4dt", dependencies = T) ); library(r4dt); dt <- list()
 
 # general parameters ####
 dt$para$customer = "PepsiCo"
@@ -27,6 +24,7 @@ dt$para$ylab <- c(bquote("TA in mg / 100mL"^-1), bquote("Coffein in mg / L"^-1),
 dt$para$mop.date <- "220522"
 dt$para$SOLL <- c(14.15, 119,84, 595.01, 49.9)
 
+dt$para$val.date <- "220522"
 # rename R files (run only once)
 # dt$para$Rfiles <- list.files(getwd(), pattern = ".R$", recursive = T)
 # file.rename(dt$para$Rfiles, gsub("beverage", dt$para$beverage, dt$para$Rfiles))
