@@ -162,57 +162,10 @@ for(i in 1:length(dt$mop$pred)){
 keep.out.unsb(model = dt$model.raw, dt$mop$wl1, dt$mop$wl2, dt$mop$wl3, dt$mop$wl4)
 
 # write to model data
-setwd(wd$data)
-dt$model.overview <- read_ods("dt_model_overview.ods")
-
-head10(dt$model.overview)
-head(dt$model.overview)
-
-length(which(dt$model.overview$beverage == dt$para$beverage))
-length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]))
-
-if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ])) == 0){
-  dt$model.overview <- rbind(dt$model.overview
-                             , data.frame(customer = dt$para$customer
-                                          , location = NA
-                                          , unit = NA
-                                          , beverage = dt$para$beverage
-                                          , LG = dt_customer[ dt_customer$location == as.character(dt$para$location) , "LG"][1]
-                                          , Parameter = dt$para$substance[ dt$para$i ]
-                                          , wl1 = dt$mop$wl1
-                                          , wl2 = dt$mop$wl2
-                                          , wl3 = dt$mop$wl3
-                                          , wl4 = dt$mop$wl4
-                                          , PC = dt$mop$ncomp
-                                          , transform = dt$mop$spc
-                                          , p = NA, n1 = NA, n2 = NA, seg = NA, Slope = NA, subset = NA)
-  )
-}
-
-if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ])) == 1){
-  
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl1"] <- dt$mop$wl1
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl2"] <- dt$mop$wl2
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl3"] <- dt$mop$wl3
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl4"] <- dt$mop$wl4
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "ncomp"] <- dt$mop$ncomp
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "spc"] <- dt$mop$spc
-}
-
-dt$model.overview <- dt$model.overview[ order(dt$model.overview$customer, dt$model.overview$beverage, dt$model.overview$substance),]
-write_ods(x = dt$model.overview, path = "dt_model_overview.ods", overwrite = T)
-
-setwd("./model")
-setwd(paste0("./", dt$para$customer))
-
-fwrite(x = cbind(dt$model.raw$data, dt$model.raw$spc)
-       , file = paste0( paste(dt$para$customer
-                              , dt$para$beverage
-                              , dt$para$substance[ dt$para$i ]
-                              , paste0("LG", as.character(dt_customer[ dt_customer$location == as.character(dt$para$location), "LG"][1]))
-                              , sep = "_"), ".csv")
-       , sep = ";", dec = ",", na = NA)
+model_parameter_write(dt$para$customer, NA, NA, dt$para$beverage, dt$para$substance[ dt$para$i ]
+                      , NA
+                      , dt$mop$ncomp
+                      , dt$mop$wl1, dt$mop$wl2, dt$mop$wl3, dt$mop$wl4
+                      , dt$mop$spc)
 setwd(dt$wd.git)
-
-
 
