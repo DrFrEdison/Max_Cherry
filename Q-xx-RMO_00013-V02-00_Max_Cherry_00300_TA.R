@@ -169,9 +169,9 @@ head10(dt$model.overview)
 head(dt$model.overview)
 
 length(which(dt$model.overview$beverage == dt$para$beverage))
-length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]))
+length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]))
 
-if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ])) == 0){
+if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ])) == 0){
   dt$model.overview <- rbind(dt$model.overview
                              , data.frame(customer = dt$para$customer
                                           , location = NA
@@ -189,17 +189,17 @@ if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overvi
   )
 }
 
-if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ])) == 1){
+if(length(which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ])) == 1){
   
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]) , "wl1"] <- dt$mop$wl1
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]) , "wl2"] <- dt$mop$wl2
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]) , "wl3"] <- dt$mop$wl3
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]) , "wl4"] <- dt$mop$wl4
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]) , "PC"] <- dt$mop$ncomp
-  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$Parameter == dt$para$substance[ dt$para$i ]) , "transform"] <- dt$mop$spc
+  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl1"] <- dt$mop$wl1
+  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl2"] <- dt$mop$wl2
+  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl3"] <- dt$mop$wl3
+  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "wl4"] <- dt$mop$wl4
+  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "ncomp"] <- dt$mop$ncomp
+  dt$model.overview[which(dt$model.overview$beverage == dt$para$beverage & dt$model.overview$substance == dt$para$substance[ dt$para$i ]) , "spc"] <- dt$mop$spc
 }
 
-dt$model.overview <- dt$model.overview[ order(dt$model.overview$customer, dt$model.overview$beverage, dt$model.overview$Parameter),]
+dt$model.overview <- dt$model.overview[ order(dt$model.overview$customer, dt$model.overview$beverage, dt$model.overview$substance),]
 write_ods(x = dt$model.overview, path = "dt_model_overview.ods", overwrite = T)
 
 setwd("./model")
